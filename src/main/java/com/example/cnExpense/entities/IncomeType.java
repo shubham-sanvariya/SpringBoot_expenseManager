@@ -1,13 +1,22 @@
 package com.example.cnExpense.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class IncomeType {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     private String name;
 
+    @ManyToOne
+    @JoinColumn(name = "income_id")
     private Income income;
 
     public IncomeType() {

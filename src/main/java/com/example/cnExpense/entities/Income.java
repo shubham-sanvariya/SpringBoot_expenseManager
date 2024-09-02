@@ -3,11 +3,20 @@ package com.example.cnExpense.entities;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Income {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     private double amount;
@@ -16,10 +25,14 @@ public class Income {
 
     private String description;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "expense_id")
     private Expense expense;
 
+    @ManyToMany(mappedBy = "incomes")
     private List<User> users;
 
+    @OneToMany(mappedBy = "income")
     private List<IncomeType> incomeTypes;
 
     public Income() {

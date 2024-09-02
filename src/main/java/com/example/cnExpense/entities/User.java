@@ -1,12 +1,25 @@
 package com.example.cnExpense.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     private String username;
@@ -17,9 +30,15 @@ public class User {
 
     private String address;
 
-    private List<Expense> expenses;
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("user")
+    private List<Expense> expenses = new ArrayList<>();
 
-    private List<Income> incomes;
+    @ManyToMany
+    @JsonIgnoreProperties("users")
+    @JoinTable(name = "user_income", joinColumns = @JoinColumn(name = "user_id"),
+    inverseJoinColumns = @JoinColumn(name = "income_id"))
+    private List<Income> incomes = new ArrayList<>();
 
     public User() {
     }
