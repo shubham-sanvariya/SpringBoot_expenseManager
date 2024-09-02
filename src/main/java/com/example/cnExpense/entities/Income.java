@@ -7,19 +7,20 @@ import javax.persistence.Entity;
 
 @Entity
 public class Income {
-    private  int id;
 
-    private   double amount;
+    private int id;
 
-    private   LocalDate date;
+    private double amount;
 
-    private   String description;
+    private LocalDate date;
 
-    private   Expense expense;
+    private String description;
 
-    private   List<User> users;
+    private Expense expense;
 
-    private   List<IncomeType> incomeTypes;
+    private List<User> users;
+
+    private List<IncomeType> incomeTypes;
 
     public Income() {
     }
