@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class IncomeType {
     @Id
@@ -17,6 +19,7 @@ public class IncomeType {
 
     @ManyToOne
     @JoinColumn(name = "income_id")
+    @JsonBackReference
     private Income income;
 
     public IncomeType() {
