@@ -30,7 +30,7 @@ public class UserDALImpl implements UserDAL {
     @Override
     public List<User> getAllUsers() {
         Session session = entityManager.unwrap(Session.class);
-        List<User> users = session.createQuery("SELCT u FROM User u", User.class).getResultList();
+        List<User> users = session.createQuery("SELECT u FROM User u", User.class).getResultList();
         return users;
     }
 
