@@ -71,4 +71,12 @@ public class UserService {
         return list;
     }
 
+    @Transactional
+    public List<User> UserListByType(String incomeType, String expenseType){
+        List<User> list = userDAL.UserListByType(incomeType,expenseType);
+        if (list.isEmpty()) {
+            throw new NotFoundException("no user list find by income and expense type");
+        }
+        return list;
+    }
 }
