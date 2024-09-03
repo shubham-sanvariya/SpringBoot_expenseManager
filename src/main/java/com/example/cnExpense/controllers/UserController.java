@@ -42,6 +42,11 @@ public class UserController {
         return userService.checkUserExists(user);
     }
 
+    @PostMapping("/find")
+    public User findUser(@RequestBody User user){
+        return userService.findUser(user);
+    }
+
     @GetMapping("/filteredUserListByCalendar")
     public List<User> getUserListByCalendar(
             @RequestParam(value = "day", required = false) String day,
