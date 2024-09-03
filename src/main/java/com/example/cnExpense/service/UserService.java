@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.cnExpense.DAL.UserDAL;
 import com.example.cnExpense.entities.User;
+import com.example.cnExpense.exception.ElementAlreadyExistException;
 import com.example.cnExpense.exception.NotFoundException;
 
 @Service
@@ -34,5 +35,15 @@ public class UserService {
         }
 
         return user;
+    }
+
+    @Transactional
+    public void saveUser(User user){
+        User u = userDAL.getUserById(user.getId());
+        if (u != null) {
+            throw new ElementAlreadyExistException("user already exists");
+        }
+
+        userDAL.saveUser(user);
     }
 }
