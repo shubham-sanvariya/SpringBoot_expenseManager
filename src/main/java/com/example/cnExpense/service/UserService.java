@@ -46,4 +46,9 @@ public class UserService {
 
         userDAL.saveUser(user);
     }
+
+    @Transactional
+    public boolean checkUserExists(User user){
+        return userDAL.checkUserExists(user);
+    }
 }
