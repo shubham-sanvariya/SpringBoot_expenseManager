@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,15 +16,15 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name = "username", unique = true)
     private String username;
 
     private String nickname;
@@ -31,15 +33,14 @@ public class User {
 
     private String address;
 
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-    // @JsonIgnoreProperties("user")
+    @OneToMany(mappedBy = "user")
     @JsonIgnore
     private List<Expense> expenses = new ArrayList<>();
 
-    @ManyToMany
-    @JsonIgnoreProperties("users")
-    @JoinTable(name = "user_income", joinColumns = @JoinColumn(name = "user_id"),
-    inverseJoinColumns = @JoinColumn(name = "income_id"))
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "user_income",
+     joinColumns = @JoinColumn(name = "user_id"),
+      inverseJoinColumns = @JoinColumn(name = "income_id"))
     private List<Income> incomes = new ArrayList<>();
 
     public User() {
