@@ -12,7 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Expense {
@@ -27,14 +28,15 @@ public class Expense {
     private String description;
 
     @ManyToOne
-    @JsonIgnoreProperties("expenses")
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToOne
+    @OneToOne(mappedBy = "expense")
+    @JsonBackReference
     private Income income;
 
     @OneToMany(mappedBy = "expense")
+    @JsonManagedReference
     private List<ExpenseType> expenseTypes;
 
     public Expense() {
