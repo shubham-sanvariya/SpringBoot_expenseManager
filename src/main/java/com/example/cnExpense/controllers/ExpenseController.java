@@ -17,7 +17,7 @@ public class ExpenseController {
     @Autowired
     ExpenseService expenseService;
 
-    @PostMapping("/save/{incomeId")
+    @PostMapping("/save/{incomeId}")
     public void saveExpenseForIncome(@PathVariable Integer incomeId, @RequestBody Expense expense){
         expenseService.saveExpenseForIncome(incomeId,expense);
     }
