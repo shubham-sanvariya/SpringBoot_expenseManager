@@ -13,6 +13,10 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Income {
     @Id
@@ -26,12 +30,18 @@ public class Income {
     private String description;
 
     @OneToOne
+    @JoinColumn(name = "expense_id")
+    @JsonManagedReference
     private Expense expense;
 
     @ManyToMany(mappedBy = "incomes")
+    @JsonBackReference
+    @JsonIgnore
     private List<User> users;
 
-    @OneToMany(mappedBy = "income")
+    @OneToMany(mappedBy = "income",cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
+    @JsonManagedReference
+    @JsonIgnore
     private List<IncomeType> incomeTypes;
 
     public Income() {
