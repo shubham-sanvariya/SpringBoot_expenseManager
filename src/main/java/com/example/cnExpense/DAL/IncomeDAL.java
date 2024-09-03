@@ -6,5 +6,5 @@ public interface IncomeDAL {
     
     Income getIncomeById(Integer id);
 
-    void saveIncomeForUser(Integer userId, Income income);
+    void saveIncomeForUser(Income income);
 }

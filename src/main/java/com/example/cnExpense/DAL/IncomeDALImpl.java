@@ -22,8 +22,7 @@ public class IncomeDALImpl implements IncomeDAL {
     }
 
     @Override
-    public void saveIncomeForUser(Integer userId, Income income) {
-
+    public void saveIncomeForUser(Income income) {
         // add income to user income list
 
         Session session = entityManager.unwrap(Session.class);
