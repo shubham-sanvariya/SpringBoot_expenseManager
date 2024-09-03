@@ -25,8 +25,7 @@ public class Income {
 
     private String description;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "expense_id")
+    @OneToOne
     private Expense expense;
 
     @ManyToMany(mappedBy = "incomes")
