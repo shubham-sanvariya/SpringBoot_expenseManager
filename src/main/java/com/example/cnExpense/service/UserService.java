@@ -61,4 +61,14 @@ public class UserService {
 
         return user;
     }
+
+    @Transactional
+    public List<User> UserListByCalendar(String day, String month, String year){
+        List<User> list = userDAL.UserListByCalendar(day,month,year);
+        if (list.isEmpty()) {
+            throw new NotFoundException("no user list find by Calender");
+        }
+        return list;
+    }
+
 }
