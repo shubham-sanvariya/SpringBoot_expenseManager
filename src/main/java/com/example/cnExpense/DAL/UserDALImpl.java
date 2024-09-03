@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -35,11 +37,15 @@ public class UserDALImpl implements UserDAL {
     @Override
     public boolean checkUserExists(User user) {
         Session session = entityManager.unwrap(Session.class);
-        User u = session.get(User.class, user.getId());
-        // if (u == null) {
-        // return false;
-        // }
-        return u == null ? false : true;
+
+        TypedQuery<Long> query = session.createQuery("SELECT COUNT(u) FROM User u WHERE u.username = :username OR u.nickname = :nickname OR u.email = :email", Long.class);
+        query.setParameter("username", user.getUsername());
+        query.setParameter("nickname", user.getNickname());
+        query.setParameter("email", user.getEmail());
+        Long count = query.getSingleResult();
+        return count > 0;
+        // User u = session.get(User.class, user.getId());
+        // return u == null ? false : true;
     }
 
     @Override
@@ -50,7 +56,9 @@ public class UserDALImpl implements UserDAL {
 
     @Override
     public User findUser(User user) {
-        return getUserById(user.getId());
+        Session session = entityManager.unwrap(Session.class);
+        User u = session.find(User.class,user);
+        return u;
     }
 
     @Override

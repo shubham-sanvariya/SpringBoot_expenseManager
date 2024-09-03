@@ -51,4 +51,14 @@ public class UserService {
     public boolean checkUserExists(User user){
         return userDAL.checkUserExists(user);
     }
+
+    @Transactional
+    public User findUser(User user){
+        User u = userDAL.findUser(user);
+        if (u == null) {
+            return null;
+        }
+
+        return user;
+    }
 }
