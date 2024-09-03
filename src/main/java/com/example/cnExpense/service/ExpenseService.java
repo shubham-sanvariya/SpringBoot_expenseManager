@@ -33,7 +33,7 @@ public class ExpenseService {
 
         income.setExpense(expense);
         expense.setIncome(income);
-
+        incomeDAL.saveIncomeForUser(income);
         expenseDAL.saveExpenseForIncome(expense);
     }
 }
