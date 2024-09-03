@@ -26,5 +26,13 @@ public class UserService {
         return list;
     }
 
-    
+    @Transactional
+    public User getUserById(Integer id){
+        User user = userDAL.getUserById(id);
+        if (user == null) {
+            throw new NotFoundException("user not found with id: " + id);
+        }
+
+        return user;
+    }
 }
