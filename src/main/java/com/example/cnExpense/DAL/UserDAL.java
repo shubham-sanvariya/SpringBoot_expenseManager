@@ -5,17 +5,13 @@ import java.util.List;
 import com.example.cnExpense.entities.User;
 
 public interface UserDAL {
-    User getUserById(Integer id);
-
     List<User> getAllUsers();
 
-    boolean checkUserExists(User user);
+    boolean checkUserExist(User user);
 
-    void saveUser(User user);
+    public User getUserById(Integer id);
 
-    User findUser(User user);
+    public User findUser(User newUser);
 
-    List<User> UserListByCalendar(String day,String month,String year);
-
-    List<User> UserListByType(String incomeType,String expenseType);
+    public User saveUser(User user);
 }
