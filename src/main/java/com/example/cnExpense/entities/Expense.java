@@ -31,7 +31,7 @@ public class Expense {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToOne(mappedBy = "expense")
+    @OneToOne
     private Income income;
 
     @OneToMany(mappedBy = "expense")
