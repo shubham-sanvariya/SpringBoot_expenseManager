@@ -9,7 +9,6 @@ import com.example.cnExpense.DAL.ExpenseDAL;
 import com.example.cnExpense.DAL.IncomeDAL;
 import com.example.cnExpense.entities.Expense;
 import com.example.cnExpense.entities.Income;
-import com.example.cnExpense.entities.User;
 import com.example.cnExpense.exception.ElementAlreadyExistException;
 import com.example.cnExpense.exception.InvalidInputException;
 
