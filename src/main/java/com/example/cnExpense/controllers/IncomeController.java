@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.cnExpense.entities.Income;
+import com.example.cnExpense.entities.User;
 import com.example.cnExpense.service.IncomeService;
 
 @RestController
@@ -25,6 +26,8 @@ public class IncomeController {
 
     @PostMapping("/save/{userId}")
     public void saveIncomeForUser(@PathVariable Integer userId, @RequestBody Income income){
-        incomeService.saveIncomeForUser(userId,income);
+        User user = new User();
+        user.setId(userId);
+        incomeService.saveIncomeForUser(user,income);
     }
 }
