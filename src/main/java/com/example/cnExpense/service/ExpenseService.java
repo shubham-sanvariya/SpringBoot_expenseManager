@@ -9,6 +9,7 @@ import com.example.cnExpense.DAL.ExpenseDAL;
 import com.example.cnExpense.DAL.IncomeDAL;
 import com.example.cnExpense.entities.Expense;
 import com.example.cnExpense.entities.Income;
+import com.example.cnExpense.entities.User;
 import com.example.cnExpense.exception.ElementAlreadyExistException;
 import com.example.cnExpense.exception.InvalidInputException;
 
@@ -21,19 +22,16 @@ public class ExpenseService {
     IncomeDAL incomeDAL;
 
     @Transactional
-    public void saveExpenseForIncome(Integer incomeId, Expense expense){
-        Income income = incomeDAL.getIncomeById(incomeId);
-        if (income == null) {
-            throw new InvalidInputException("Income ID not found: " + incomeId);
+    public Income saveExpenseForIncome(Income income, Expense expense){
+        Income i = incomeDAL.getIncomeById(income.getId());
+        if (i == null) {
+            throw new InvalidInputException("Income ID not found: " + income.getId());
         }
 
-        if (income.getExpense() != null) {
+        if (i.getExpense() != null) {
             throw new ElementAlreadyExistException("An expense is already associated with this income");
         }
 
-        income.setExpense(expense);
-        expense.setIncome(income);
-        incomeDAL.saveIncomeForUser(income);
-        expenseDAL.saveExpenseForIncome(expense);
+        return expenseDAL.saveExpense(income,expense);
     }
 }
