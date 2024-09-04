@@ -32,18 +32,16 @@ public class IncomeService {
     }
 
     @Transactional
-    public void saveIncomeForUser(Integer userId, Income income){
-        User user = userDAL.getUserById(userId);
-        if (user == null) {
-            throw new InvalidInputException("user id does not exits: " + userId);
+    public void saveIncomeForUser(User user, Income income){
+        User u = userDAL.getUserById(user.getId());
+        if (u == null) {
+            throw new InvalidInputException("user id does not exits: " + user.getId());
         }
 
-        if (user.getIncomes().stream().anyMatch(inc -> inc.getId() == income.getId())) {
+        if (u.getIncomes().stream().anyMatch(inc -> inc.getId() == income.getId())) {
             throw new ElementAlreadyExistException("income already exists for user");
         }
-
-        user.getIncomes().add(income);
-        userDAL.saveUser(user);
-        incomeDAL.saveIncomeForUser(income);
+        
+        incomeDAL.saveIncome(user,income);
     }
 }
